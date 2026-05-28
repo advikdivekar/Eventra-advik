@@ -80,15 +80,16 @@ function sendReport(report) {
  * Call this once from the application entry point (index.js) after the
  * DOM is ready.
  */
+let _cspHandler = null;
+
 export function initCspReporting() {
   if (typeof document === 'undefined') return;
+  if (_cspHandler) return;
 
-  document.addEventListener('securitypolicyviolation', (event) => {
+  _cspHandler = (event) => {
     const report = buildReport(event);
 
     if (isDev) {
-      // Surfaced as a warning so it is visible in DevTools without
-      // being confused with an application error.
       console.warn(
         '[CSP Violation]',
         `Directive: ${event.effectiveDirective}`,
@@ -99,16 +100,17 @@ export function initCspReporting() {
     }
 
     sendReport(report);
-  });
+  };
+
+  document.addEventListener('securitypolicyviolation', _cspHandler);
 }
 
 /**
- * Removes the CSP violation listener.
- * Useful in unit tests to reset between test cases.
+ * Removes the CSP violation listener registered by initCspReporting().
+ * Call this in test teardown or before re-initialising.
  */
 export function teardownCspReporting() {
-  if (typeof document === 'undefined') return;
-  // Re-adding without the original reference would leave the old listener
-  // attached; this is a best-effort teardown for test environments only.
-  document.removeEventListener('securitypolicyviolation', () => {});
+  if (typeof document === 'undefined' || !_cspHandler) return;
+  document.removeEventListener('securitypolicyviolation', _cspHandler);
+  _cspHandler = null;
 }
