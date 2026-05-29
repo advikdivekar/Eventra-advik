@@ -87,6 +87,8 @@ const StarRating = ({ rating, onRatingChange, error }) => {
       </div>
       {error && (
         <motion.p
+          role="alert"
+          aria-live="polite"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-red-500 dark:text-red-400 text-xs mt-1"
@@ -125,6 +127,9 @@ const FloatingInput = ({
           onChange={onChange}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
+          aria-invalid={!!error}
+          aria-describedby={error ? `${id}-error` : undefined}
+          aria-required={required}
           className={`w-full px-4 pt-6 pb-2 border-2 rounded-xl focus:ring-4 focus:outline-none bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 transition-all duration-300 ${Icon ? "pl-14" : ""
             } ${error
               ? "border-red-500 focus:border-red-500 focus:ring-red-100 dark:focus:ring-red-900/30"
@@ -154,12 +159,14 @@ const FloatingInput = ({
       <AnimatePresence>
         {error && (
           <motion.p
+            role="alert"
+            aria-live="polite"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             className="text-red-500 dark:text-red-400 text-xs mt-2 ml-1 flex items-center gap-1"
           >
-            <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
               <path
                 fillRule="evenodd"
                 d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
@@ -225,6 +232,11 @@ const CustomFloatingSelect = ({
           type="button"
           id={id}
           onClick={() => setIsOpen(!isOpen)}
+          aria-haspopup="listbox"
+          aria-expanded={isOpen}
+          aria-invalid={!!error}
+          aria-required={required}
+          aria-describedby={error ? `${id}-error` : undefined}
           className={`w-full text-left px-4 pt-6 pb-2 border-2 rounded-xl focus:ring-4 focus:outline-none bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 transition-all duration-300 ${selectedIcon ? "pl-12" : "pl-4"
             } pr-12 ${error
               ? "border-red-500 focus:border-red-500 focus:ring-red-100 dark:focus:ring-red-900/30"
@@ -298,12 +310,14 @@ const CustomFloatingSelect = ({
       <AnimatePresence>
         {error && (
           <motion.p
+            role="alert"
+            aria-live="polite"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             className="text-red-500 dark:text-red-400 text-xs mt-2 ml-1 flex items-center gap-1"
           >
-            <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
               <path
                 fillRule="evenodd"
                 d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"

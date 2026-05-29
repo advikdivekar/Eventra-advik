@@ -74,12 +74,14 @@ const FormField = ({ label, icon: Icon, error, children, required, hint }) => (
     {children}
     {hint && <p className="text-xs text-gray-500 dark:text-gray-400">{hint}</p>}
     {error && (
-      <motion.p 
+      <motion.p
+        role="alert"
+        aria-live="polite"
         initial={{ opacity: 0, y: -5 }}
         animate={{ opacity: 1, y: 0 }}
         className="text-red-500 text-sm flex items-center gap-1"
       >
-        <AlertCircleIcon className="w-4 h-4" />
+        <AlertCircleIcon className="w-4 h-4" aria-hidden="true" />
         {error}
       </motion.p>
     )}
@@ -945,6 +947,8 @@ const EventCreation = () => {
                                  : "border-gray-300 dark:border-gray-600"
                              }`}
                     aria-invalid={!!errors.title}
+                    aria-describedby={errors.title ? "title-error" : undefined}
+                    aria-required="true"
                   />
                 </FormField>
               </motion.div>
@@ -1063,6 +1067,8 @@ const EventCreation = () => {
                                    : "border-gray-300 dark:border-gray-600"
                                }`}
                       aria-invalid={!!errors.description}
+                      aria-describedby={errors.description ? "description-error" : undefined}
+                      aria-required="true"
                     />
                     <div className="flex justify-between items-center text-xs">
                       <span className="text-gray-500 dark:text-gray-400">
@@ -1093,6 +1099,8 @@ const EventCreation = () => {
                                  : "border-gray-300 dark:border-gray-600"
                              }`}
                     aria-invalid={!!errors.category}
+                    aria-describedby={errors.category ? "category-error" : undefined}
+                    aria-required="true"
                   >
                     <option value="">Select a category</option>
                     {categories.map((cat) => (
@@ -1769,9 +1777,10 @@ const EventCreation = () => {
                 <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="p-4 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 
+                  className="p-4 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200
                            dark:border-red-800 text-red-800 dark:text-red-200 text-center"
                   role="alert"
+                  aria-live="assertive"
                 >
                   <div className="flex items-center justify-center gap-2">
                     <AlertCircleIcon className="w-5 h-5" />

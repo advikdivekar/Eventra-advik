@@ -82,11 +82,13 @@ const FloatingField = ({
       {error && (
         <motion.p
           id={`${id}-error`}
+          role="alert"
+          aria-live="polite"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           className="ml-1 mt-1 flex items-center gap-1.5 text-sm text-red-500 dark:text-red-400"
         >
-          <AlertCircle className="h-4 w-4 shrink-0" />
+          <AlertCircle className="h-4 w-4 shrink-0" aria-hidden="true" />
           {error}
         </motion.p>
       )}

@@ -738,6 +738,9 @@ const EventRegistration = () => {
                     value={formData.fullName}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    aria-invalid={!!(errors.fullName && touched.fullName)}
+                    aria-describedby={errors.fullName && touched.fullName ? "fullName-error" : undefined}
+                    aria-required="true"
                     className={`w-full pl-10 pr-4 py-3 border rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all ${errors.fullName && touched.fullName
                         ? "border-red-500"
                         : "border-gray-300 dark:border-gray-600"
@@ -746,7 +749,7 @@ const EventRegistration = () => {
                   />
                 </div>
                 {errors.fullName && touched.fullName && (
-                  <p className="text-red-500 text-sm mt-1">{errors.fullName}</p>
+                  <p id="fullName-error" role="alert" aria-live="polite" className="text-red-500 text-sm mt-1">{errors.fullName}</p>
                 )}
               </div>
 
@@ -767,6 +770,9 @@ const EventRegistration = () => {
                     value={formData.email}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    aria-invalid={!!(errors.email && touched.email)}
+                    aria-describedby={errors.email && touched.email ? "email-error" : undefined}
+                    aria-required="true"
                     className={`w-full pl-10 pr-4 py-3 border rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all ${errors.email && touched.email
                         ? "border-red-500"
                         : "border-gray-300 dark:border-gray-600"
@@ -775,7 +781,7 @@ const EventRegistration = () => {
                   />
                 </div>
                 {errors.email && touched.email && (
-                  <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                  <p id="email-error" role="alert" aria-live="polite" className="text-red-500 text-sm mt-1">{errors.email}</p>
                 )}
               </div>
 
@@ -796,6 +802,9 @@ const EventRegistration = () => {
                     value={formData.phone}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    aria-invalid={!!(errors.phone && touched.phone)}
+                    aria-describedby={errors.phone && touched.phone ? "phone-error" : undefined}
+                    aria-required="true"
                     className={`w-full pl-10 pr-4 py-3 border rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none transition-all ${errors.phone && touched.phone
                         ? "border-red-500"
                         : "border-gray-300 dark:border-gray-600"
